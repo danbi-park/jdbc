@@ -15,6 +15,7 @@ import static hello.jdbc.connection.ConnectionConst.*;
 @Slf4j
 public class ConnectionTest {
 
+    // DriverManager를 쓸 땐 항상 부가정보(URL, NAME, PW)를 전달한다.
     @Test
     void driverManager() throws SQLException {
         Connection con1 = DriverManager.getConnection(URL, USERNAME, PASSWORD);
@@ -23,6 +24,9 @@ public class ConnectionTest {
         log.info("connection={}, class={}", con2, con2.getClass());
     }
 
+
+    // 스프링이 제공하는 DriverManagerDataSource
+    // DataManager 에서 ConnectionPool을 사용할 수 있도록 DataSource 인터페이스를 구현한 클래스
     @Test
     void dataSourceDriverManager() throws SQLException {
         //DriverManagerDataSource - 항상 새로운 커넥션을 획득
@@ -40,7 +44,10 @@ public class ConnectionTest {
         dataSource.setMaximumPoolSize(10);
         dataSource.setPoolName("MyPool");
 
-        useDataSource(dataSource);
+        for (int i = 0; i < 11; i++) {
+            dataSource.getConnection();
+        }
+//        useDataSource(dataSource);
         Thread.sleep(1000);
     }
 

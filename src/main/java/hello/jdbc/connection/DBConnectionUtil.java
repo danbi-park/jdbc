@@ -10,6 +10,9 @@ import static hello.jdbc.connection.ConnectionConst.*;
 
 @Slf4j
 public class DBConnectionUtil {
+
+
+    /// 커넥션을 연결하는 방법 1 - DriverManager (좀 구식 ^^)
     public static Connection getConnection(){
         try {
             //jdbc가 제공하는 jdbc 드라이버 매니저가 h2의 Driver가 찾아 실제 커넥션을 가져옴
@@ -21,4 +24,5 @@ public class DBConnectionUtil {
             throw new IllegalStateException(e);
         }
     }
+
 }
